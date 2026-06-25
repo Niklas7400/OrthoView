@@ -1,4 +1,4 @@
-package com.example.orthoviewe;
+package com.example.orthoview;
 
 import org.junit.Test;
 

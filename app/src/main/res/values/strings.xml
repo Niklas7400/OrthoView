@@ -1,5 +1,15 @@
 <resources>
-    <string name="app_name">OrthoViewe</string>
+    <string name="app_name">OrthoView</string>
+    <string name="label_folder_name">Ordnername</string>
+    <string name="hint_folder_name">z. B. Patientenname</string>
+    <string name="record_side">Seitenaufnahme</string>
+    <string name="record_front">Frontaufnahme</string>
+    <string name="view_videos">Videos anzeigen</string>
+    <string name="tutorial">Tutorial</string>
+    <string name="start_recording">Aufnahme starten</string>
+    <string name="open_storage">Speicher öffnen</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nein</string>
     <string name="enter_folder_name">Bitte einen Ordnernamen eingeben</string>
     <string name="error_creating_video">Fehler beim Erstellen der Videodatei</string>
     <string name="permission_denied">Berechtigung verweigert!</string>

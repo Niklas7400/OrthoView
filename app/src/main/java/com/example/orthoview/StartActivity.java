@@ -1,4 +1,4 @@
-package com.example.orthoviewe;
+package com.example.orthoview;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -26,7 +26,7 @@ public class StartActivity extends AppCompatActivity {
 
         Button btnOpenApp = findViewById(R.id.btnOpenApp);
         Button btnOpenStorage = findViewById(R.id.btnOpenStorage);
-        Button btnTutorial = findViewById(R.id.btnVideoTutorial); // Korrigierte ID
+        Button btnTutorial = findViewById(R.id.btnVideoTutorial);
 
         btnOpenApp.setOnClickListener(v -> {
             Intent intent = new Intent(StartActivity.this, MainActivity.class);
@@ -54,9 +54,8 @@ public class StartActivity extends AppCompatActivity {
             }
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Ordner auswählen, um Videos anzuzeigen");
+            builder.setTitle(R.string.select_folder);
 
-            // Create a view for the search functionality
             View searchView = getLayoutInflater().inflate(R.layout.dialog_search, null);
             SearchView search = searchView.findViewById(R.id.searchView);
             ListView listView = searchView.findViewById(R.id.listView);
@@ -84,7 +83,7 @@ public class StartActivity extends AppCompatActivity {
             builder.setView(searchView);
             builder.show();
         } else {
-            Toast.makeText(this, "Keine Ordner gefunden!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.no_folders_found, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -98,20 +97,16 @@ public class StartActivity extends AppCompatActivity {
             }
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Video auswählen, um es anzusehen");
-
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, videoFileNames);
-            builder.setItems(videoFileNames.toArray(new String[0]), (dialog, which) -> {
-                playVideo(videoFiles[which]);
-            });
+            builder.setTitle(R.string.select_video);
+            builder.setItems(videoFileNames.toArray(new String[0]), (dialog, which) -> playVideo(videoFiles[which]));
             builder.show();
         } else {
-            Toast.makeText(this, "Keine Videos in diesem Ordner gefunden!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.no_videos_found, Toast.LENGTH_SHORT).show();
         }
     }
 
     private void playVideo(File videoFile) {
-        Uri videoURI = FileProvider.getUriForFile(this, "com.example.orthoviewe.fileprovider", videoFile);
+        Uri videoURI = FileProvider.getUriForFile(this, "com.example.orthoview.fileprovider", videoFile);
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setDataAndType(videoURI, "video/*");
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
