@@ -1,7 +1,6 @@
-package com.example.orthoviewe;
+package com.example.orthoview;
 
 import android.Manifest;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -32,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int REQUEST_VIDEO_CAPTURE = 101;
     private static final int PERMISSION_REQUEST_CODE = 102;
-    private String currentVideoPath;
     private EditText editTextFileName;
 
     @Override
@@ -89,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             if (videoFile != null) {
-                Uri videoURI = FileProvider.getUriForFile(this, "com.example.orthoviewe.fileprovider", videoFile);
+                Uri videoURI = FileProvider.getUriForFile(this, "com.example.orthoview.fileprovider", videoFile);
                 takeVideoIntent.putExtra(MediaStore.EXTRA_OUTPUT, videoURI);
                 startActivityForResult(takeVideoIntent, REQUEST_VIDEO_CAPTURE);
             }
@@ -104,14 +102,11 @@ public class MainActivity extends AppCompatActivity {
 
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String videoFileName = view + "VIDEO_" + timeStamp;
-        File video = File.createTempFile(
+        return File.createTempFile(
                 videoFileName,
                 ".mp4",
                 storageDir
         );
-
-        currentVideoPath = video.getAbsolutePath();
-        return video;
     }
 
     private boolean checkPermission() {
@@ -131,9 +126,7 @@ public class MainActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == PERMISSION_REQUEST_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Berechtigung erteilt
-            } else {
+            if (grantResults.length == 0 || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this, R.string.permission_denied, Toast.LENGTH_SHORT).show();
             }
         }
@@ -181,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
                 new AlertDialog.Builder(this)
                         .setTitle(R.string.delete_folder)
                         .setMessage(R.string.delete_folder_message)
-                        .setPositiveButton("Ja", (dialog, which) -> {
+                        .setPositiveButton(R.string.yes, (dialog, which) -> {
                             if (deleteDirectory(folder)) {
                                 Toast.makeText(this, R.string.folder_deleted, Toast.LENGTH_SHORT).show();
                                 adapter.remove(selectedFolder);
@@ -190,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(this, R.string.folder_delete_failed, Toast.LENGTH_SHORT).show();
                             }
                         })
-                        .setNegativeButton("Nein", null)
+                        .setNegativeButton(R.string.no, null)
                         .show();
 
                 return true;
@@ -219,9 +212,7 @@ public class MainActivity extends AppCompatActivity {
             ListView listView = new ListView(this);
             listView.setAdapter(adapter);
 
-            listView.setOnItemClickListener((parent, view, position, id) -> {
-                // Code, um das Video abzuspielen
-            });
+            listView.setOnItemClickListener((parent, view, position, id) -> playVideo(new File(folder, adapter.getItem(position))));
 
             listView.setOnItemLongClickListener((parent, view, position, id) -> {
                 String selectedVideo = adapter.getItem(position);
@@ -230,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
                 new AlertDialog.Builder(this)
                         .setTitle(R.string.delete_video)
                         .setMessage(R.string.delete_video_message)
-                        .setPositiveButton("Ja", (dialog, which) -> {
+                        .setPositiveButton(R.string.yes, (dialog, which) -> {
                             if (videoFile.delete()) {
                                 Toast.makeText(this, R.string.video_deleted, Toast.LENGTH_SHORT).show();
                                 adapter.remove(selectedVideo);
@@ -239,7 +230,7 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(this, R.string.video_delete_failed, Toast.LENGTH_SHORT).show();
                             }
                         })
-                        .setNegativeButton("Nein", null)
+                        .setNegativeButton(R.string.no, null)
                         .show();
 
                 return true;
@@ -250,6 +241,14 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, R.string.no_videos_found, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void playVideo(File videoFile) {
+        Uri videoURI = FileProvider.getUriForFile(this, "com.example.orthoview.fileprovider", videoFile);
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(videoURI, "video/*");
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        startActivity(intent);
     }
 
     private boolean deleteDirectory(File dir) {

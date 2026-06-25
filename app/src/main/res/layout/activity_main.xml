@@ -15,36 +15,36 @@
             android:id="@+id/labelName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Name des Spielers" />
+            android:text="@string/label_folder_name" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="hint" />
+            android:hint="@string/hint_folder_name" />
 
         <Button
             android:id="@+id/btnRecordSide"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Seitenaufnahme" />
+            android:text="@string/record_side" />
 
         <Button
             android:id="@+id/btnRecordFront"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Frontaufnahme" />
+            android:text="@string/record_front" />
 
         <Button
             android:id="@+id/btnViewVideo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Videos anzeigen" />
+            android:text="@string/view_videos" />
 
         <Button
             android:id="@+id/btnVideoTutorial"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tutorial" />
+            android:text="@string/tutorial" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

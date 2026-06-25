@@ -1,4 +1,4 @@
-package com.example.orthoviewe;
+package com.example.orthoview;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,7 +13,7 @@ public class VideoTutorialActivity extends AppCompatActivity {
         setContentView(R.layout.activity_video_tutorial);
 
         VideoView videoView = findViewById(R.id.videoViewTutorial);
-        Uri videoUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_tutorial); // Stellen Sie sicher, dass Sie die richtige Video-Ressource haben
+        Uri videoUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_tutorial);
         videoView.setVideoURI(videoUri);
         videoView.start();
     }

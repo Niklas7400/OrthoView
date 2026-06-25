@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:layout_marginTop="350dp"
-        android:text="Aufnahme starten"
+        android:text="@string/start_recording"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:layout_marginTop="25dp"
-        android:text="Speicher öffnen"
+        android:text="@string/open_storage"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnOpenApp" />
 
@@ -38,7 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:layout_marginTop="550dp"
-        android:text="Tutorial"
+        android:text="@string/tutorial"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
