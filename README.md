@@ -4,7 +4,7 @@
   <img src="app/src/main/logo-playstore.png" alt="OrthoView logo" width="120">
 </p>
 
-OrthoView is a native Android app for recording, organizing, and reviewing short orthodontic progress videos (front view / side view) per patient. Each patient gets a dedicated folder, making it easy to capture a consistent set of angles over time and look back at recordings later.
+OrthoView is a native Android app for recording, organizing, and reviewing short gait-analysis videos (front view / side view) per patient. Each patient gets a dedicated folder, making it easy to capture a consistent set of angles over time and look back at recordings later.
 
 ## Features
 
